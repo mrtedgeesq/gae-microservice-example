@@ -1,0 +1,17 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "An example node service for a GAE microservices architecture",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": { 
+    "node" : ">=6.0.0" 
+  },
+  "author": "Tom Edge",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
