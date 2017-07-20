@@ -1,4 +1,4 @@
 java-service/target/
 node-service/node_modules/
 node-service/npm-debug.log
-default-service/main.pyc
+*.pyc
