@@ -1,0 +1,7 @@
+runtime: php55
+api_version: 1
+service: php-demo
+
+handlers:
+- url: /.*
+  script: python-service.php

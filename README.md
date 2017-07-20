@@ -4,7 +4,7 @@
 
 The purpose of this project is to demonstrate how to structure applications as microservices and deploy them to Google App Engine. 
 
-Projects are included in Java, Python and Node.js
+Projects are included in Java, Python, PHP and Node.js 
 
 Different microservice architectures could be considered. 
 
@@ -55,9 +55,9 @@ It is necessary to deploy a default service before any other service, but the de
 
 ### 1. Create a folder and navigate to it
 
-`$ mkdir default-service`
+`$ mkdir python-service`
 
-`$ cd default-service`
+`$ cd python-service`
 
 ### 2. Configure python app for GAE
 
@@ -105,7 +105,7 @@ To test - `$ gcloud app browse`
 
 A lot of the node stuff for this is from https://medium.com/this-dot-labs/node-js-microservices-on-google-app-engine-b1193497fb4b
 
-### 1. Create a folder  and navigate to it
+### 1. Create a folder and navigate to it
 
 `$ mkdir node-service`
 
@@ -292,3 +292,89 @@ public class HelloServlet extends HttpServlet {
 Java needs a different tool to deploy to app engine, so you'll need to make sure maven is installed and configured.
 
 `$ mvn appengine:update`
+
+## Create a php service
+
+### 1. Create a folder and navigate to it
+
+`$ mkdir php-service`
+
+`$ cd php-service`
+
+### 2. Configure php app for GAE
+
+1. Create app.yaml file which defines the runtime and entry point for the php app
+
+```
+runtime: php55
+api_version: 1
+service: php-demo
+
+handlers:
+- url: /.*
+  script: python-service.php
+```
+
+2. Create main.py
+
+```
+<?php
+echo 'Hello from php!';
+```
+
+### 3. Test locally 
+
+`$ dev_appserver.py app.yaml`
+
+### 4. Deploy
+
+`$ gcloud app deploy`
+
+## Create a go service
+
+### 1. Create a folder and navigate to it
+
+`$ mkdir go-service`
+
+`$ cd go-service`
+
+### 2. Configure go app for GAE
+
+1. Create app.yaml file which defines the runtime and entry point for the go app
+
+```
+runtime: go
+api_version: go1
+service: go-demo
+
+handlers:
+- url: /.*
+  script: _go_app
+```
+
+2. Create hello.go
+
+```
+package hello
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func init() {
+    http.HandleFunc("/", handler)
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprint(w, "Hello, world!")
+}
+```
+
+### 3. Test locally 
+
+`$ dev_appserver.py app.yaml`
+
+### 4. Deploy
+
+`$ gcloud app deploy`
